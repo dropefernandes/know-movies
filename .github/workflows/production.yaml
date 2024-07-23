@@ -1,0 +1,19 @@
+name: CI - KnowMovies to PROD 🚀
+
+on: [push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout ✅
+        uses: actions/checkout@v4
+      - name: Install Node.js 🐢
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: run install and build 🚀🧑🏽‍💻
+        run: |
+          npm install
+          npm run build
