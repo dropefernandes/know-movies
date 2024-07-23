@@ -45,7 +45,6 @@ const search = computed(() => store.movie.filters.search)
 
 const searchMovie = () => {
   useFetch(`search/movie?query=${search.value}`).then(({ data }) => {
-    console.log(data)
     store.setMovieList(data.response.results)
   })
 }
