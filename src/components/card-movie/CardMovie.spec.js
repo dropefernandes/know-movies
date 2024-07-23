@@ -1,35 +1,28 @@
-import { describe, it, mount, expect } from 'vitest'
+import { describe, it, expect } from 'vitest'
+import { shallowMount } from '@vue/test-utils'
 
 import CardMovie from './CardMovie.vue'
 
 describe('CardMovie Component', () => {
-  it('should render correctly', async () => {
-    const movieProps = {
-      coverImage: '/example-cover.jpg',
-      title: 'Exemplo de Filme',
-      date: '2023-07-22'
+  it('renders movie information correctly', () => {
+    const movie = {
+      coverImage: 'test-image.jpg',
+      title: 'Test Movie',
+      date: '2023-01-01'
     }
 
-    // Monta o componente com as propriedades
-    const { getByAltText, getByText } = await mount(CardMovie, {
+    const wrapper = shallowMount(CardMovie, {
       props: {
-        movie: movieProps
+        movie
       }
     })
 
-    // Verifica se a imagem está sendo renderizada corretamente
-    const imageElement = getByAltText(movieProps.title)
-    expect(imageElement).toHaveAttribute(
-      'src',
-      `https://image.tmdb.org/t/p/w220_and_h330_face${movieProps.coverImage}`
+    expect(wrapper.find('.bg-selection').exists()).toBe(true)
+    expect(wrapper.find('img').attributes('src')).toBe(
+      `https://image.tmdb.org/t/p/w220_and_h330_face${movie.coverImage}`
     )
-
-    // Verifica se o título está sendo renderizado corretamente
-    const titleElement = getByText(movieProps.title)
-    expect(titleElement).toBeInTheDocument()
-
-    // Verifica se a data está sendo formatada corretamente
-    const formattedDate = getByText('22 de julho de 2023') // Verifique a formatação conforme sua função dateFormat
-    expect(formattedDate).toBeInTheDocument()
+    expect(wrapper.find('img').attributes('alt')).toBe(movie.title)
+    expect(wrapper.find('h2').text()).toBe(movie.title)
+    expect(wrapper.find('span').text()).toBe('1 Jan 2023')
   })
 })

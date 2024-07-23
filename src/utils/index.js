@@ -3,7 +3,7 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 export const dateFormat = (date = '') => {
   const data = new Date(date)
 
-  return `${data.getDate()} ${months[data.getMonth()]} ${data.getFullYear()}`
+  return `${data.getUTCDate()} ${months[data.getUTCMonth()]} ${data.getUTCFullYear()}`
 }
 
 export const timeFormat = (value) => {
